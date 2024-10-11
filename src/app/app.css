@@ -1,0 +1,9 @@
+.main {
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  background: linear-gradient(225.23deg, #11151C 0%, #080D12 75.39%);
+}
+
+

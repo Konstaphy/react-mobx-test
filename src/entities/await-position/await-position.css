@@ -1,0 +1,35 @@
+.await_position {
+    height: 56px;
+    width: 100%;
+    background-color: #181D26;
+    border-radius: 11px;
+    display: grid;
+    list-style: none;
+    align-items: center;
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    padding-left: 15px;
+    color: white;
+    grid-template-columns: 10% 15% 10% 15% 15% 20% 10% 5%;
+}
+
+.arrow-container {
+    height: 46px;
+    width: 46px;
+    background: linear-gradient(90deg, #28313E 0%, #2C405C 100%);
+    border-radius: 15px;
+    display: grid;
+    place-items: center;
+}
+
+.circle {
+    height: 18px;
+    width: 18px;
+    border-radius: 100%;
+    border: 1px solid white;
+}
+
+.circle.active {
+    background-color: #C82323;
+    border: none;
+}
