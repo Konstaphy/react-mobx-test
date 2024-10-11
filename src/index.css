@@ -6,7 +6,7 @@
     box-sizing: border-box;
 }
 
-h1, h2, p, span, a {
+h1, h2, p, span, a, b {
     font-family: "Poppins", sans-serif;
     text-underline: none;
 }

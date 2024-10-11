@@ -1,8 +1,8 @@
 import { FC, useState } from "react";
-import { ErrorScreen } from "../shared/ui/error-screen.tsx";
-import { useFetchPosts } from "../shared/api/posts/use-fetch-posts.tsx";
+import { ErrorScreen } from "../../shared/ui/error-screen.tsx";
+import { useFetchPosts } from "../../shared/api/posts/use-fetch-posts.tsx";
 import "./posts-list.scss";
-import { Post } from "../entities/post/post.tsx";
+import { Post } from "../../entities/post/post.tsx";
 
 // в доке указано 100 постов выдается, лимиты и страницы там не нашел
 // сделал 12 постов на странице, чтобы выглядело красивее (по 3 поста на строчку)

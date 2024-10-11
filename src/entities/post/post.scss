@@ -2,7 +2,9 @@
   width: 100%;
   aspect-ratio: 1;
   cursor: pointer;
-  background-position: center;
+  background-position: center top;
+  background-size: 100% auto;
+  background-image: url("https://picsum.photos/1500/1500.jpg");
   display: flex;
   flex-direction: column-reverse;
   overflow: hidden;
