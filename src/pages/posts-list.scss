@@ -1,0 +1,30 @@
+.posts {
+  .posts_list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 10px 30px;
+    gap: 30px;
+  }
+
+  .posts_title {
+    font-size: 36px;
+    margin: 40px 30px 10px 30px;
+  }
+
+  .pagination {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    padding: 20px 0;
+
+    span {
+      cursor: pointer;
+      font-size: 18px;
+
+      &.page__active {
+        color: red;
+      }
+    }
+  }
+}

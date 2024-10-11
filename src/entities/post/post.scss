@@ -1,0 +1,19 @@
+.post {
+  width: 100%;
+  aspect-ratio: 1;
+  cursor: pointer;
+  background-position: center;
+  display: flex;
+  flex-direction: column-reverse;
+  overflow: hidden;
+
+  .post_title {
+    width: 100%;
+    text-align: center;
+    color: white;
+    background-color: #101016;
+    padding: 10px 20px;
+    min-height: 75px;
+  }
+}
+

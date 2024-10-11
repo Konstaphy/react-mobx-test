@@ -1,10 +1,10 @@
-import './app.css'
-import {AdminModal} from "../features/admin-modal/admin-modal.tsx";
+import "./app.scss"
+import { PostsList } from "../pages/posts-list.tsx"
 
 export function App() {
   return (
     <main className={"main"}>
-      <AdminModal/>
+      <PostsList />
     </main>
   )
 }

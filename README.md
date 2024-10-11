@@ -1,50 +1,53 @@
-# React + TypeScript + Vite
+# Тестовое задание
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Технологии
 
-Currently, two official plugins are available:
+- Vite
+- React (Функциональные компоненты предпочтительнее)
+- MobX (Он используется на проекте) или Redux Toolkit
+- SCSS
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Задание
 
-## Expanding the ESLint configuration
+> Реализовать простой список постов блога с возможностью детального просмотра. Дизайн и доп. функционал на свой вкус.
+>
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Главная страница
 
-- Configure the top-level `parserOptions` property like this:
+- Сверстать список постов
+    - Изображение
+    - Название поста
+    - Имя автора поста
+    - Ссылку на детальную страницу
+    - Пагинация (10 постов на страницу)
+- Подключить API
+    - Получение списка постов: GET [https://jsonplaceholder.typicode.com/posts](https://jsonplaceholder.typicode.com/posts)
+    - Получение списка пользователей: GET [https://jsonplaceholder.typicode.com/users](https://jsonplaceholder.typicode.com/users)
+    - Получение случайного изображения: SRC [https://picsum.photos/1500/1500.jpg](https://picsum.photos/1500/1500.jpg)
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### Детальная страница
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- Сверстать пост
+    - Изображение
+    - Название поста
+    - Имя автора поста
+    - Текст поста
+- Подключить API
+    - Получение поста: GET [https://jsonplaceholder.typicode.com/posts/<id>](https://jsonplaceholder.typicode.com/posts/ID)
+    - Получение одного пользователя: GET [https://jsonplaceholder.typicode.com/users/<id>](https://jsonplaceholder.typicode.com/users/ID)
+    - Получение случайного изображения: SRC [https://picsum.photos/1500/1500.jpg](https://picsum.photos/1500/1500.jpg)
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### Плюсом будет
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- Реализовать
+    - С использованием Axios
+    - Добавление нового поста, сделать в модальном окне.
+        - Результат запроса вывести в консоль. Возможно, потребуется дополнительный заголовок: `'CONTENT-TYPE': 'APPLICATION/JSON; CHARSET=UTF-8'`.
+- Подключение API
+    - Реализация с использованием FormData: POST [https://jsonplaceholder.typicode.com/posts](https://jsonplaceholder.typicode.com/posts)
+
+## Полезные материалы
+
+- [React](https://reactjs.org/)
+- [MobX](https://mobx.js.org/README.html)
+- [Книга по MobX](https://mobx-cookbook.github.io/)
