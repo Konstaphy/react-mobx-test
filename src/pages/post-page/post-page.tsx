@@ -4,12 +4,16 @@ import { ErrorScreen } from "../../shared/ui/error-screen.tsx";
 import { Undo } from "lucide-react";
 import { useFetchSingleUser } from "../../shared/api/users/use-fetch-single-user.tsx";
 import "./post-page.scss";
+import { generateSeed } from "../../shared/utils/generate-seed.ts";
+import { useState } from "react";
 
 export const PostPage = () => {
   const { id } = useParams<{ id: string }>();
   const { post, error: postError } = useFetchSinglePost(id || "");
   const { user, error: userError } = useFetchSingleUser(post?.userId);
   const navigate = useNavigate();
+
+  const [imageSeed] = useState<string>(generateSeed());
 
   if (postError) {
     return <ErrorScreen title={"Произошла ошибка при получении поста"} />;
@@ -25,7 +29,7 @@ export const PostPage = () => {
         <img
           height={500}
           width={500}
-          src={"https://picsum.photos/1500/1500.jpg"}
+          src={`https://picsum.photos/seed/${imageSeed}/1500/1500.jpg`}
           alt={"Картинка поста еще не прогрузилась"}
         />
         <div className={"post__text_content"}>

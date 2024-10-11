@@ -1,0 +1,12 @@
+.create_post_modal {
+  height: 700px;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+
+  .create_post_modal__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
