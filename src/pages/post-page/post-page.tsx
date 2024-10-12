@@ -6,23 +6,24 @@ import { useFetchSingleUser } from "../../shared/api/users/use-fetch-single-user
 import "./post-page.scss";
 import { generateSeed } from "../../shared/utils/generate-seed.ts";
 import { useState } from "react";
+import { observer } from "mobx-react-lite";
+import { localPostsStore } from "../../shared/store/create-new-post-store/local-posts-store.ts";
+import { TPost } from "../../shared/types/post.ts";
 
-export const PostPage = () => {
+export const PostPage = observer(() => {
   const { id } = useParams<{ id: string }>();
-  const { post, error: postError } = useFetchSinglePost(id || "");
+  const localPost: TPost = localPostsStore.findPostById(parseFloat(id));
+  const { post } = useFetchSinglePost(!localPost ? id || "" : "");
+
   const { user, error: userError } = useFetchSingleUser(post?.userId);
   const navigate = useNavigate();
 
   const [imageSeed] = useState<string>(generateSeed());
 
-  if (postError) {
-    return <ErrorScreen title={"Произошла ошибка при получении поста"} />;
-  }
-
   return (
     <div className={"post_page"}>
       <div className={"header"}>
-        <p>{post?.title}</p>
+        <p>{!localPost ? post?.title : localPost.title}</p>
         <Undo size={"24px"} cursor={"pointer"} onClick={() => navigate("/")} />
       </div>
       <div className={"post_content"}>
@@ -33,12 +34,12 @@ export const PostPage = () => {
           alt={"Картинка поста еще не прогрузилась"}
         />
         <div className={"post__text_content"}>
-          <p>{post?.body}</p>
+          <p>{!localPost ? post?.body : localPost.body}</p>
           <span>
-            By: <b>{!userError && user?.name}</b>
+            By: <b>{!localPost ? !userError && user?.name : "Ваш пост"}</b>
           </span>
         </div>
       </div>
     </div>
   );
-};
+});

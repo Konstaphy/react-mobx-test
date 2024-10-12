@@ -6,16 +6,18 @@ import { Post } from "../../entities/post/post.tsx";
 import { Pen } from "lucide-react";
 import { Modal } from "../../shared/ui/modal/modal.tsx";
 import { CreatePostModal } from "../../features/create-post/create-post.tsx";
+import { localPostsStore } from "../../shared/store/create-new-post-store/local-posts-store.ts";
+import { observer } from "mobx-react-lite";
 
-// в доке указано 100 постов выдается, лимиты и страницы там не нашел
-// сделал 12 постов на странице, чтобы выглядело красивее (по 3 поста на строчку)
-const PAGE_COUNT = Math.ceil(100 / 12);
-const PAGES = Array.from(Array(PAGE_COUNT).keys());
-
-export const PostsList: FC = () => {
+export const PostsList: FC = observer(() => {
   const { posts, error } = useFetchPosts();
   const [page, setPage] = useState(0);
   const [isModalOpened, setModalOpened] = useState<boolean>(false);
+
+  // в доке указано 100 постов выдается, лимиты и страницы там не нашел
+  // сделал 12 постов на странице, чтобы выглядело красивее (по 3 поста на строчку)
+  const pageCount = Math.ceil((100 + localPostsStore.localPosts.length) / 12);
+  const pages = Array.from(Array(pageCount).keys());
 
   // Специально делаю отдельный скрин для ошибки при этом запросе,
   // потому что этот функционал - ядро проекта
@@ -33,12 +35,15 @@ export const PostsList: FC = () => {
         </button>
       </div>
       <section className={"posts_list"}>
-        {posts.slice(12 * page, 12 + 12 * page).map((p) => (
-          <Post post={p} key={p.id} />
-        ))}
+        {localPostsStore.localPosts
+          .concat(posts)
+          .slice(12 * page, 12 + 12 * page)
+          .map((p) => (
+            <Post post={p} key={p.id} />
+          ))}
       </section>
       <nav className={"pagination"}>
-        {PAGES.map((p) => (
+        {pages.map((p) => (
           <span
             key={p}
             onClick={() => setPage(p)}
@@ -55,4 +60,4 @@ export const PostsList: FC = () => {
       )}
     </div>
   );
-};
+});

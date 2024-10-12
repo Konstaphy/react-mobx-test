@@ -9,7 +9,9 @@ export const useFetchSinglePost = (id: string) => {
 
   useEffect(() => {
     if (!id) {
-      console.error("Не указан айди при запросе за постом");
+      console.error(
+        "Не указан айди при запросе за постом (Или локальный пост)",
+      );
       return;
     }
     const source = axios.CancelToken.source();
