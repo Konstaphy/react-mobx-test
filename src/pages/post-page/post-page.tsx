@@ -1,6 +1,5 @@
 import { useFetchSinglePost } from "../../shared/api/posts/use-fetch-single-post.tsx";
 import { useNavigate, useParams } from "react-router";
-import { ErrorScreen } from "../../shared/ui/error-screen.tsx";
 import { Undo } from "lucide-react";
 import { useFetchSingleUser } from "../../shared/api/users/use-fetch-single-user.tsx";
 import "./post-page.scss";
@@ -18,8 +17,6 @@ export const PostPage = observer(() => {
   const { user, error: userError } = useFetchSingleUser(post?.userId);
   const navigate = useNavigate();
 
-  const [imageSeed] = useState<string>(generateSeed());
-
   return (
     <div className={"post_page"}>
       <div className={"header"}>
@@ -30,7 +27,7 @@ export const PostPage = observer(() => {
         <img
           height={500}
           width={500}
-          src={`https://picsum.photos/seed/${imageSeed}/1500/1500.jpg`}
+          src={`https://picsum.photos/seed/${post?.title}/1500/1500.jpg`}
           alt={"Картинка поста еще не прогрузилась"}
         />
         <div className={"post__text_content"}>
