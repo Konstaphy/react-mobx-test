@@ -46,6 +46,8 @@ export const CreatePostModal: FC<Props> = observer(({ onClose }) => {
             }).then((res) => {
               if (res) {
                 localPostsStore.addPost(res);
+                createNewPostStore.setTitle("");
+                createNewPostStore.setBody("");
                 onClose();
               }
             })
