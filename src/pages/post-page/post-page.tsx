@@ -3,8 +3,6 @@ import { useNavigate, useParams } from "react-router";
 import { Undo } from "lucide-react";
 import { useFetchSingleUser } from "../../shared/api/users/use-fetch-single-user.tsx";
 import "./post-page.scss";
-import { generateSeed } from "../../shared/utils/generate-seed.ts";
-import { useState } from "react";
 import { observer } from "mobx-react-lite";
 import { localPostsStore } from "../../shared/store/create-new-post-store/local-posts-store.ts";
 import { TPost } from "../../shared/types/post.ts";
