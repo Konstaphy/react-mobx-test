@@ -6,6 +6,7 @@ import { fetchSinglePost } from "./fetch-single-post.ts";
 export const useFetchSinglePost = (id: string) => {
   const [post, setPost] = useState<TPost | undefined>(undefined);
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (!id) {
@@ -14,9 +15,11 @@ export const useFetchSinglePost = (id: string) => {
       );
       return;
     }
+    setIsLoading(true);
     const source = axios.CancelToken.source();
     fetchSinglePost(id, source.token)
       .then(setPost)
+      .then(() => setIsLoading(false))
       .catch((e) => {
         if (e.message !== "canceled") {
           setError("При обрабботке запроса за постом произошла ошибка");
@@ -26,5 +29,5 @@ export const useFetchSinglePost = (id: string) => {
     return () => source.cancel();
   }, [id]);
 
-  return { post, error };
+  return { post, error, isLoading };
 };

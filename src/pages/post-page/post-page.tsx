@@ -1,19 +1,29 @@
 import { useFetchSinglePost } from "../../shared/api/posts/use-fetch-single-post.tsx";
 import { useNavigate, useParams } from "react-router";
-import { Undo } from "lucide-react";
+import { Loader, Undo } from "lucide-react";
 import { useFetchSingleUser } from "../../shared/api/users/use-fetch-single-user.tsx";
 import "./post-page.scss";
 import { observer } from "mobx-react-lite";
-import { localPostsStore } from "../../shared/store/create-new-post-store/local-posts-store.ts";
+import { localPostsStore } from "../../entities/store/local-posts-store/local-posts-store.ts";
 import { TPost } from "../../shared/types/post.ts";
 
 export const PostPage = observer(() => {
   const { id } = useParams<{ id: string }>();
-  const localPost: TPost = localPostsStore.findPostById(parseFloat(id));
-  const { post } = useFetchSinglePost(!localPost ? id || "" : "");
+  const localPost: TPost | undefined = localPostsStore.findPostById(
+    parseFloat(id || ""),
+  );
+  const { post, isLoading } = useFetchSinglePost(!localPost ? id || "" : "");
 
   const { user, error: userError } = useFetchSingleUser(post?.userId);
   const navigate = useNavigate();
+
+  if (isLoading) {
+    return (
+      <div className={"centered-item"}>
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <div className={"post_page"}>

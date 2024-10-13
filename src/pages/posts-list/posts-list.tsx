@@ -3,14 +3,14 @@ import { ErrorScreen } from "../../shared/ui/error-screen.tsx";
 import { useFetchPosts } from "../../shared/api/posts/use-fetch-posts.tsx";
 import "./posts-list.scss";
 import { Post } from "../../entities/post/post.tsx";
-import { Pen } from "lucide-react";
+import { Loader, Pen } from "lucide-react";
 import { Modal } from "../../shared/ui/modal/modal.tsx";
 import { CreatePostModal } from "../../features/create-post/create-post.tsx";
-import { localPostsStore } from "../../shared/store/create-new-post-store/local-posts-store.ts";
+import { localPostsStore } from "../../entities/store/local-posts-store/local-posts-store.ts";
 import { observer } from "mobx-react-lite";
 
 export const PostsList: FC = observer(() => {
-  const { posts, error } = useFetchPosts();
+  const { posts, error, isLoading } = useFetchPosts();
   const [page, setPage] = useState(0);
   const [isModalOpened, setModalOpened] = useState<boolean>(false);
 
@@ -18,6 +18,14 @@ export const PostsList: FC = observer(() => {
   // сделал 12 постов на странице, чтобы выглядело красивее (по 3 поста на строчку)
   const pageCount = Math.ceil((100 + localPostsStore.localPosts.length) / 12);
   const pages = Array.from(Array(pageCount).keys());
+
+  if (isLoading) {
+    return (
+      <div className={"centered-item"}>
+        <Loader />
+      </div>
+    );
+  }
 
   // Специально делаю отдельный скрин для ошибки при этом запросе,
   // потому что этот функционал - ядро проекта

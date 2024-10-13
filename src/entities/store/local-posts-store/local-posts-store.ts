@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { TPost } from "../../types/post.ts";
+import { TPost } from "../../../shared/types/post.ts";
 
 class LocalPostsStore {
   localPosts: TPost[] = [];
@@ -12,7 +12,7 @@ class LocalPostsStore {
     this.localPosts.push(newPost);
   }
 
-  findPostById(id: string) {
+  findPostById(id: number) {
     return this.localPosts.find((p) => p.id === id);
   }
 }
