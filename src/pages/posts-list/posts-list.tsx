@@ -1,25 +1,27 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { ErrorScreen } from "../../shared/ui/error-screen.tsx";
-import { useFetchPosts } from "../../shared/api/posts/use-fetch-posts.tsx";
 import "./posts-list.scss";
 import { Post } from "../../entities/post/post.tsx";
 import { Loader, Pen } from "lucide-react";
 import { Modal } from "../../shared/ui/modal/modal.tsx";
 import { CreatePostModal } from "../../features/create-post/create-post.tsx";
-import { localPostsStore } from "../../entities/store/local-posts-store/local-posts-store.ts";
+import { postsStore } from "../../entities/store/posts-store/posts-store.ts";
 import { observer } from "mobx-react-lite";
 
 export const PostsList: FC = observer(() => {
-  const { posts, error, isLoading } = useFetchPosts();
   const [page, setPage] = useState(0);
   const [isModalOpened, setModalOpened] = useState<boolean>(false);
 
+  useEffect(() => {
+    postsStore.fetch();
+  }, []);
+
   // в доке указано 100 постов выдается, лимиты и страницы там не нашел
   // сделал 12 постов на странице, чтобы выглядело красивее (по 3 поста на строчку)
-  const pageCount = Math.ceil((100 + localPostsStore.localPosts.length) / 12);
+  const pageCount = Math.ceil(postsStore.posts.length / 12);
   const pages = Array.from(Array(pageCount).keys());
 
-  if (isLoading) {
+  if (postsStore.isLoading) {
     return (
       <div className={"centered-item"}>
         <Loader />
@@ -29,8 +31,8 @@ export const PostsList: FC = observer(() => {
 
   // Специально делаю отдельный скрин для ошибки при этом запросе,
   // потому что этот функционал - ядро проекта
-  if (error) {
-    return <ErrorScreen title={error} />;
+  if (postsStore.error) {
+    return <ErrorScreen title={postsStore.error} />;
   }
 
   return (
@@ -43,8 +45,8 @@ export const PostsList: FC = observer(() => {
         </button>
       </div>
       <section className={"posts_list"}>
-        {localPostsStore.localPosts
-          .concat(posts)
+        {[...postsStore.posts]
+          .reverse()
           .slice(12 * page, 12 + 12 * page)
           .map((p) => (
             <Post post={p} key={p.id} />

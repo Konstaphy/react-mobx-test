@@ -8,8 +8,10 @@ const source = axios.CancelToken.source();
 export const useCreatePost = () => {
   const [error, setError] = useState<string | null>(null);
 
-  const createPostMutation = (req: TCreatePostRequest): TPost | null => {
-    return createPost(req, source.token)
+  const createPostMutation = async (
+    req: TCreatePostRequest,
+  ): Promise<TPost | null> => {
+    return await createPost(req, source.token)
       .then((res) => {
         console.log(res);
         return res;

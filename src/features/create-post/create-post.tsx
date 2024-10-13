@@ -4,7 +4,7 @@ import { X } from "lucide-react";
 import { observer } from "mobx-react-lite";
 import { createNewPostStore } from "../../entities/store/create-new-post-store/create-new-post-store.ts";
 import { useCreatePost } from "../../shared/api/posts/use-create-post.tsx";
-import { localPostsStore } from "../../entities/store/local-posts-store/local-posts-store.ts";
+import { postsStore } from "../../entities/store/posts-store/posts-store.ts";
 
 type Props = {
   onClose: VoidFunction;
@@ -45,7 +45,7 @@ export const CreatePostModal: FC<Props> = observer(({ onClose }) => {
               userId: 1,
             }).then((res) => {
               if (res) {
-                localPostsStore.addPost(res);
+                postsStore.addPost({ ...res, isLocal: true });
                 createNewPostStore.setTitle("");
                 createNewPostStore.setBody("");
                 onClose();

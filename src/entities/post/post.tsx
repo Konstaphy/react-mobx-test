@@ -13,7 +13,9 @@ export const Post: FC<Props> = ({ post }) => {
       style={{
         backgroundImage: `url("https://picsum.photos/seed/${post.title}/1500/1500.jpg")`,
       }}
-      onClick={() => navigate(`/post/${post.id}`)}
+      onClick={() =>
+        navigate(`/${post.isLocal ? "localpost" : "post"}/${post.id}`)
+      }
     >
       <p className={"post_title"}>{post.title}</p>
     </div>
